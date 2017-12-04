@@ -1,0 +1,6 @@
+<input [(ngModel)] = "hero.name ">
+<div>
+  <li *ngFor= "let hero of heroes" routerLink="/hero/{{hero.id}}">
+    {{hero.id}}
+   {{hero.label}}
+</div>
