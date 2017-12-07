@@ -1,0 +1,39 @@
+<form  [formGroup]="loginForm" (ngSubmit)="login(loginForm.value)" novalidate>
+  <div class="imgcontainer">
+    <!-- <img src="../../assets/images/img_avatar2.png" alt="Avatar" class="avatar"> -->
+  </div>
+
+  <div class="container">
+    <label><b>Email</b></label>
+    <input type="email" placeholder="Enter Email" formControlName="email">
+
+      <div class="w3-panel w3-red "  *ngIf="loginForm.controls.email.invalid &&
+           (loginForm.controls.email.dirty ||
+            loginForm.controls.email.touched) ">Please enter valid email address.
+
+      </div> 
+
+      <div class="container">
+    <label><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" formControlName="password">
+
+
+    <div class="w3-panel w3-red " *ngIf="loginForm.controls.password.invalid &&
+    (loginForm.controls.email.dirty ||
+     loginForm.controls.email.touched) ">Please enter valid password.
+
+</div> 
+      </div>  
+
+    <button type="submit"  [disabled]="!loginForm.valid" (click)="login()">Login</button>
+    <!-- <input type="checkbox" formControlName="rememberMe" checked="checked"> Remember me -->
+   
+ 
+
+  </div>
+
+  <div class="container" style="background-color:#f1f1f1">
+    <button type="button" class="cancelbtn">Cancel</button>
+    <span class="psw">Forgot <a routerlink="/forget"> password?</a></span>
+  </div>
+</form>

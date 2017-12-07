@@ -1,27 +1,29 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AppComponent } from './app.component';
 import { HeroesComponent } from './heroes/heroes.component';
 import { HeroServiceService} from './hero-service.service';
 import { HttpModule} from '@angular/http';
-import { MessagesComponent } from './messages/messages.component';
-import { MessageService } from './message.service';
-import { AppRoutingModule } from './app-routing/app-routing.module'
+import { AppRoutingModule } from './app-routing/app-routing.module';
+import { LoginComponent } from './login/login.component';
+import { ForgetpasswordComponent } from './forgetpassword/forgetpassword.component'
 
 @NgModule({
   declarations: [
     AppComponent,
     HeroesComponent,
-    MessagesComponent
+    LoginComponent,
+    ForgetpasswordComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
+    ReactiveFormsModule,
     AppRoutingModule
   ],
-  providers: [HeroServiceService, MessageService],
+  providers: [HeroServiceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

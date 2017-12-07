@@ -1,6 +1,13 @@
-<input [(ngModel)] = "hero.name ">
+
 <div>
-  <li *ngFor= "let hero of heroes" routerLink="/hero/{{hero.id}}">
+  <li *ngFor= "let hero of heroes" (click)="onSelect(hero)">
     {{hero.id}}
    {{hero.label}}
 </div>
+
+<div *ngIf="hero1">
+  {{hero1.id}}
+  {{hero1.label}}
+</div>
+
+{{birthday|date}}
