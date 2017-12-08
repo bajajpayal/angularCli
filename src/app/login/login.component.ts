@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl,FormBuilder,Validators, FormGroup } from '@angular/forms';
 import { HeroServiceService } from '../hero-service.service';
+import { Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -9,7 +10,7 @@ import { HeroServiceService } from '../hero-service.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private builder : FormBuilder, private heroService : HeroServiceService) { }
+  constructor(private builder : FormBuilder, private heroService : HeroServiceService, private router: Router) { }
 
   ngOnInit() {
   }
@@ -36,6 +37,7 @@ export class LoginComponent implements OnInit {
       if(res.statusCode == 200)
       {
         alert(res.message);
+        this.router.navigate(['/dashboard']);
       }
       else{
         alert(res.message);
