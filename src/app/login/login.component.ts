@@ -13,6 +13,10 @@ export class LoginComponent implements OnInit {
   constructor(private builder : FormBuilder, private heroService : HeroServiceService, private router: Router) { }
 
   ngOnInit() {
+    if(localStorage.getItem('userData'))
+    {
+      this.router.navigate(['/dashboard']);
+    }
   }
   email = new FormControl('',[
     Validators.required,
@@ -37,7 +41,8 @@ export class LoginComponent implements OnInit {
       if(res.statusCode == 200)
       {
         alert(res.message);
-        this.router.navigate(['/dashboard']);
+        localStorage.setItem('userData',JSON.stringify(res.result));
+        this.router.navigate(['/header']);
       }
       else{
         alert(res.message);
