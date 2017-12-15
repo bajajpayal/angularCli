@@ -28,7 +28,7 @@ export class ForgetpasswordComponent implements OnInit {
       {
         console.log(res);
         this.forgetForm.value.email = '';
-        alert(res.message);
+       // alert(res.message);
         this.router.navigate(['/login']);
       })
   }

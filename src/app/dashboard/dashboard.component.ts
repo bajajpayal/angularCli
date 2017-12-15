@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HeroServiceService} from '../hero-service.service';
-import { trigger,state,transition,style,animate} from '@angular/animations';
+import { trigger,state,transition,style,animate, keyframes} from '@angular/animations';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -13,7 +15,11 @@ import { trigger,state,transition,style,animate} from '@angular/animations';
       state('large',style({
         transform: 'scale(2)'
       })),
-      transition('small=>large',animate('100ms ease-in'))
+      transition('small<=>large',animate('100ms ease-in',keyframes([
+        style({opacity: 0, transform: 'translateY(-100%)', offset: 0}),
+        style({opacity: 1, transform: 'translateY(70px)',  offset: 0.5}),
+        style({opacity: 1, transform: 'translateY(0)',     offset: 1.0})
+      ])))
     ])
   ]
 })
@@ -25,23 +31,30 @@ clickme()
   this.state= (this.state ==='small' ? 'large' : 'small')
 }
 
-  constructor(private heroService : HeroServiceService) { 
-    console.log("hello ")
-    this.heroService.getWorkoutData()
-    .subscribe((res=>
+  constructor(private heroService : HeroServiceService, public http : HttpClient) {
+
+      var data = {};
+
+    this.http.post<UserResponse>('http://localhost:8020/v1/boostAdmin/Workout/viewAllWorkouts',data)
+    .subscribe(res=>
     {
-      console.log(res,"resultltltl")
       if(res.statusCode == 200)
       {
-        console.log(res.statusCode)
         this.data=  res.result.workouts;
       }
-      
-    }))
+
+    })
   }
 
   ngOnInit() {
-    
+
   }
 
 }
+interface UserResponse {
+  statusCode: number;
+  message: string;
+  result: {
+    workouts: object
+  }
+  }

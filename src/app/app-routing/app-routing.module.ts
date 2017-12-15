@@ -14,9 +14,9 @@ const routes : Routes =[
   { path : 'login', component : LoginComponent},
   { path : 'forget', component : ForgetpasswordComponent},
   { path : 'header', component : HeaderComponent, canActivate: [AuthService],
-    children: headerChildRoutes  
+    children: headerChildRoutes
 },
-  { path : '', redirectTo:'/login',pathMatch:'full'}
+  { path : '', redirectTo: '/login', pathMatch: 'full'}
 ]
 @NgModule({
   exports :[RouterModule],

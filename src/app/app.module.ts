@@ -13,7 +13,11 @@ import { ExerciseManagementComponent } from './exercise-management/exercise-mana
 import { DataTableModule } from "angular2-datatable";
 import { HeaderComponent } from './header/header.component';
 import { AuthService} from './Service/auth/auth.service';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations/'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations/';
+import {HttpClientModule} from '@angular/common/http';
+import { CommonServiceService } from './Service/commonService/common-service.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptor } from './Service/token.interceptor';
 
 @NgModule({
   declarations: [
@@ -32,9 +36,17 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations/'
     ReactiveFormsModule,
     AppRoutingModule,
     DataTableModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    HttpClientModule
   ],
-  providers: [HeroServiceService,AuthService],
+  providers: [HeroServiceService,
+    AuthService,
+    CommonServiceService,
+  {
+    provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

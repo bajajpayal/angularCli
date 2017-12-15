@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HeroServiceService} from '../hero-service.service';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 @Component({
   selector: 'app-exercise-management',
@@ -9,23 +10,30 @@ import { HeroServiceService} from '../hero-service.service';
 export class ExerciseManagementComponent implements OnInit {
 
   public data;
-  constructor(private heroService : HeroServiceService) { 
-    console.log("hello ")
-    this.heroService.getExerciseData()
-    .subscribe((res=>
+  constructor(private heroService : HeroServiceService, public http : HttpClient) {
+
+      var data = {};
+
+    this.http.post<UserResponse>('http://localhost:8020/v1/boostAdmin/exercise/getAllExercises',data)
+    .subscribe(res=>
     {
-      console.log(res.result,"resultltltl")
       if(res.statusCode == 200)
       {
-        console.log(res.statusCode)
-        this.data=  res.result.exercises;
-        console.log(this.data);
+        this.data =  res.result.exercises;
       }
-      
-    }))
+
+    })
   }
 
   ngOnInit() {
   }
 
 }
+
+interface UserResponse {
+  statusCode: number;
+  message: string;
+  result: {
+    exercises : object
+  }
+  }

@@ -4,11 +4,11 @@ import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from
 export class AuthService implements CanActivate{
 
   constructor(private router: Router) {}
-  
+
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
       let url: string = state.url;
-  
-      if (localStorage.getItem('userData')) {
+
+      if (localStorage.getItem('token')) {
         return true;
       }else {
         this.router.navigate(['/login']);
